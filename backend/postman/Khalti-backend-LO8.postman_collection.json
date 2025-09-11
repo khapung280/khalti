@@ -1,0 +1,155 @@
+{
+  "info": {
+    "name": "Khalti Backend — LO8",
+    "description": "Express + MongoDB API tests (products, auth, contact, homepage content). Import: Postman → Import → this file.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:5000" },
+    { "key": "product_id", "value": "" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "GET all products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/product"
+          }
+        },
+        {
+          "name": "POST seed 10 groceries",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/product/seed"
+          }
+        },
+        {
+          "name": "POST create product",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ProductName\": \"Organic Cucumber\",\n  \"ProductCode\": \"GROC-099\",\n  \"Price\": 60,\n  \"Stock\": 50,\n  \"Thumbnail\": \"https://images.unsplash.com/photo-1447175008436-054170c2e979?w=600&q=80\",\n  \"Description\": \"Fresh organic cucumber from Koshi farms.\",\n  \"Category\": \"Vegetables\"\n}"
+            },
+            "url": "{{base_url}}/api/product"
+          }
+        },
+        {
+          "name": "GET product by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/product/{{product_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"demo_user\",\n  \"email\": \"demo@example.com\",\n  \"password\": \"demo123456\"\n}"
+            },
+            "url": "{{base_url}}/auth/register"
+          }
+        },
+        {
+          "name": "POST login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"demo@example.com\",\n  \"password\": \"demo123456\"\n}"
+            },
+            "url": "{{base_url}}/auth/login"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contact (MongoDB)",
+      "item": [
+        {
+          "name": "POST contact message",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"+9779800000000\",\n  \"subject\": \"general\",\n  \"message\": \"Hello from Postman — LO8 backend test.\"\n}"
+            },
+            "url": "{{base_url}}/api/contact"
+          }
+        },
+        {
+          "name": "GET all contact messages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/contact?limit=20"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Homepage content (MongoDB)",
+      "item": [
+        {
+          "name": "GET homepage JSON",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/home"
+          }
+        },
+        {
+          "name": "PUT update homepage",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"heroTitle\": \"Updated from Postman\",\n  \"heroSubtitle\": \"Fresh organic groceries — LO8 documentation screenshot.\"\n}"
+            },
+            "url": "{{base_url}}/api/home"
+          }
+        },
+        {
+          "name": "POST reset homepage defaults",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/home/reset"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET API root",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/"
+          }
+        }
+      ]
+    }
+  ]
+}
